@@ -4,6 +4,7 @@ var app = express();
 var fs = require('fs');
 const zlib = require('zlib');
 
+var playbackSpeed = 10;
 var cloningMode = true;
 var serverPort = 5001;
 var hostname = "api.sde.globo.com";
@@ -116,7 +117,7 @@ function swapAndLoadCache() {
 function getBackup() {
   setTimeout(getBackup, 1000);
   var nextTime = getTimeFromFileName(backupList[indexFile+1]);
-  if((Date.now() - timeOffset) >= (nextTime - startTime)) {
+  if((Date.now() - timeOffset)*playbackSpeed >= (nextTime - startTime)) {
     swapAndLoadCache();
   }
 };
